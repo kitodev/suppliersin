@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js'></script>
+    <title>Beszállító adatai</title>
+</head>
+<body>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+    Beszállító adatai
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Beszállító adatai:</h5>
+            </div>
+            <div class="modal-body">
+                <form data-bind="foreach: contacts">
+                    <div class="form-group">
+                        <label for="suplier-name" class="col-form-label">Név:</label>
+                        <input type="text" data-bind="value: supplierName" class="form-control" id="suplier-name">
+                    </div>
+                    <div class="form-group" data-bind="foreach: phones">
+                        <label for="mobile" class="col-form-label">Mobil:</label>
+                        <input type="text" data-bind="value: supplierMobile" class="form-control" id="mobile">
+                    </div>
+                    <div class="form-group">
+                      <label for="inputState">Besorolás</label>
+                      <select id="inputState" data-bind="options: inputState, optionsCaption: 'Válasszon ki egy besorolást...', valueAllowUnset: true"  class="form-control">
+                        <option value="kiemelt">Kiemelt</option>
+                        <option value="normal" selected>Normál</option>
+                        <option value="problemas">Problémás</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact" class="col-form-label">Kapcsolat tartó:</label>
+                        <input type="text" data-bind="value: contactName" class="form-control" id="contact">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="billing_address" class="col-form-label">Számlázási cím:</label>
+                        <input type="text" data-bind="value: billingAddress" class="form-control" id="billing_address">
+                    </div>
+                    <div class="form-group">
+                        <label for="home_address" class="col-form-label">Székhely címe:</label>
+                        <input type="text" data-bind="value: homeAddress" class="form-control" id="home_address">
+                    </div>
+                    <div class="form-group">
+                        <label for="home_address" class="col-form-label">Legutóbbi 3 beszállítás:</label>
+                        <div class="list-group">
+                          <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                              <h6 class="mb-1">2019-04-22</h6>
+                                <small><i>1472713 Ft</i></small>
+                            </div>
+                            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                            <small>Donec id elit non mi porta.</small>
+                          </a>
+                          <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                              <h6 class="mb-1">2019-04-21</h6>
+                              <small class="text-muted"><i>794 Ft</i></small>
+                            </div>
+                            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                            <small class="text-muted">Donec id elit non mi porta.</small>
+                          </a>
+                          <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                              <h6 class="mb-1">2019-03-15</h6>
+                              <small class="text-muted"><i>28 000 Ft</i></small>
+                            </div>
+                            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                            <small class="text-muted">Donec id elit non mi porta.</small>
+                          </a>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Mégse</button>
+                    <button type="button" data-bind="click: save" class="btn btn-primary">Mentés</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="file:///E:/suppliersin/index.html" data-bind="value: lastSavedJson">JSON adat</a>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script>
+        $(document).ready(function(){
+            // Hide modal on button click
+            $(".btn-primary").click(function(){
+                $("#exampleModalCenter").modal('hide');
+            });
+        });
+
+        var initialData = [
+            { supplierName: "Balog Kft.",
+                phones: [
+                {
+                    supplierMobile: "+367065231"
+                }],
+                inputState: [
+                    'Kiemelt', 'Normál', 'Problémás'
+                ],
+                contactName: "Erdos Janos",
+
+                billingAddress: "Elemer Janos utca, 23, Budapest, 1765",
+
+                homeAddress: "Elemer Janos utca, 23, Budapest, 1765"
+            }
+        ];
+
+        var SuppliersModel = function(contacts) {
+            var self = this;
+            self.contacts = ko.observableArray(ko.utils.arrayMap(contacts, function(contact) {
+                return { supplierName: contact.supplierName,
+                            phones: ko.observableArray(contact.phones),
+                            inputState: ko.observableArray(contact.inputState),
+                            contactName: contact.contactName,
+                            billingAddress: contact.billingAddress,
+                            homeAddress: contact.homeAddress
+                    };
+            }))
+
+        self.addPhone = function(contact) {
+            contact.phones.push({
+                number: ""
+            });
+        };
+
+        self.save = function() {
+            self.lastSavedJson(JSON.stringify(ko.toJS(self.contacts), null, 2));
+        };
+
+        self.lastSavedJson = ko.observable("");
+    };
+
+    ko.applyBindings(new SuppliersModel(initialData));
+    </script>
+</body>
+</html>
