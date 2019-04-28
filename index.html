@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
     <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js'></script>
     <title>Beszállító adatai</title>
 </head>
@@ -22,89 +21,165 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Beszállító adatai:</h5>
+                <h5 class="modal-title" id="exampleModalCenterTitle">Beszállító adatai</h5>
             </div>
             <div class="modal-body">
                 <form data-bind="foreach: contacts">
-                    <div class="form-group">
-                        <label for="suplier-name" class="col-form-label">Név:</label>
-                        <input type="text" data-bind="value: supplierName" class="form-control" id="suplier-name">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="padding-bottom">
+                                <label for="suplier-name" class="col-form-label">Név</label>
+                                <input type="text" id="form_suplier" placeholder="Név" class="form-control" id="suplier-name">
+                                <span id="error_form" class="error_form"></span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group" data-bind="foreach: phones">
-                        <label for="mobile" class="col-form-label">Mobil:</label>
-                        <input type="text" data-bind="value: supplierMobile" class="form-control" id="mobile">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="padding-bottom">
+                                <div data-bind="foreach: phones">
+                                    <label for="mobile" class="col-form-label">Mobil</label>
+                                    <input type="text" placeholder="Mobil" class="form-control" id="form_mobile">
+                                    <span id="mobile-error" class="mobile-error"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="inputState" class="col-form-label">Besorolás</label>
+                                <select id="inputState" data-bind="options: inputState, optionsCaption: 'Válasszon ki egy besorolást...', valueAllowUnset: true"  class="form-control">
+                                    <option value="kiemelt">Kiemelt</option>
+                                    <option value="normal" selected>Normál</option>
+                                    <option value="problemas">Problémás</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                      <label for="inputState">Besorolás</label>
-                      <select id="inputState" data-bind="options: inputState, optionsCaption: 'Válasszon ki egy besorolást...', valueAllowUnset: true"  class="form-control">
-                        <option value="kiemelt">Kiemelt</option>
-                        <option value="normal" selected>Normál</option>
-                        <option value="problemas">Problémás</option>
-                      </select>
+                    <div class="padding-bottom">
+                        <label for="contact" class="col-form-label">Kapcsolat tartó</label>
+                        <input type="text" data-bind="value: contactName" placeholder="Kapcsolat tartó" class="form-control" id="contact">
                     </div>
-                    <div class="form-group">
-                        <label for="contact" class="col-form-label">Kapcsolat tartó:</label>
-                        <input type="text" data-bind="value: contactName" class="form-control" id="contact">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="padding-bottom">
+                                <label for="billing_address" class="col-form-label">Számlázási cím</label>
+                                <input type="text" data-bind="value: billingAddress" placeholder="Számlázási cím" class="form-control" id="billing_address">
+                            </div>
+                            </div>
+                        <div class="col-sm-6">
+                            <div class="padding-bottom">
+                                <label for="home_address" class="col-form-label">Székhely címe</label>
+                                <input type="text" data-bind="value: homeAddress" class="form-control" placeholder="Székhely címe" id="home_address">
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="billing_address" class="col-form-label">Számlázási cím:</label>
-                        <input type="text" data-bind="value: billingAddress" class="form-control" id="billing_address">
-                    </div>
-                    <div class="form-group">
-                        <label for="home_address" class="col-form-label">Székhely címe:</label>
-                        <input type="text" data-bind="value: homeAddress" class="form-control" id="home_address">
-                    </div>
-                    <div class="form-group">
-                        <label for="home_address" class="col-form-label">Legutóbbi 3 beszállítás:</label>
+                    <div>
+                        <label for="home_address" class="col-form-label">Legutóbbi 3 beszállítás</label>
                         <div class="list-group">
-                          <a href="#" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                              <h6 class="mb-1">2019-04-22</h6>
-                                <small><i>1472713 Ft</i></small>
+                            <div class="row">
+                                <div class="d-flex align-content-between flex-wrap">
+                                    <div class="col-sm-12 padding-bottom">
+                                        <a href="#" class="list-group-item list-group-item-action">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h6 class="mb-1">2019-02-15</h6>
+                                                <small class="text-muted"><i>281 000 Ft</i></small>
+                                            </div>
+                                            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                            <small class="text-muted">Donec id elit non mi porta.</small>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-12 padding-bottom">
+                                      <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                          <h6 class="mb-1">2019-04-21</h6>
+                                          <small class="text-muted"><i>794 Ft</i></small>
+                                        </div>
+                                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                        <small class="text-muted">Donec id elit non mi porta.</small>
+                                      </a>
+                                    </div>
+                                    <div class="col-sm-12 padding-bottom">
+                                      <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                          <h6 class="mb-1">2019-03-15</h6>
+                                          <small class="text-muted"><i>28 000 Ft</i></small>
+                                        </div>
+                                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                        <small class="text-muted">Donec id elit non mi porta.</small>
+                                      </a>
+                                    </div>
+                                </div>
                             </div>
-                            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                            <small>Donec id elit non mi porta.</small>
-                          </a>
-                          <a href="#" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                              <h6 class="mb-1">2019-04-21</h6>
-                              <small class="text-muted"><i>794 Ft</i></small>
-                            </div>
-                            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                            <small class="text-muted">Donec id elit non mi porta.</small>
-                          </a>
-                          <a href="#" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                              <h6 class="mb-1">2019-03-15</h6>
-                              <small class="text-muted"><i>28 000 Ft</i></small>
-                            </div>
-                            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                            <small class="text-muted">Donec id elit non mi porta.</small>
-                          </a>
                         </div>
                     </div>
                 </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Mégse</button>
-                    <button type="button" data-bind="click: save" class="btn btn-primary">Mentés</button>
+                    <button type="submit" data-bind="click: save" id="submit" class="btn btn-primary">Mentés</button>
                 </div>
             </div>
         </div>
     </div>
-    <a href="file:///E:/suppliersin/index.html" data-bind="value: lastSavedJson">JSON adat</a>
 </div>
-
+<textarea name="jsno" id="" cols="30" rows="10" data-bind="value: lastSavedJson"></textarea>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
-        $(document).ready(function(){
-            // Hide modal on button click
-            $(".btn-primary").click(function(){
-                $("#exampleModalCenter").modal('hide');
+
+        $(function() {
+            $('#submit').click(function(event) {
+                $("#suplier_name").hide();
+                $('.mobile-error').hide();
+
+                var error_suplier_name = false;
+                var error_suplier_name = false;
+
+                checkSuplierName();
+
+                $("#form_suplier").focusout(function () {
+                    checkSuplierName();
+                });
+
+                $("#form_mobile").focusout(function () {
+                    var phone_number = $('#form_mobile').val();
+                    if (!phone_validate(phone_number) || phone_number.length < 8) {
+                        $("#mobile-error").html("A mobil csak számokat tartalmazhat");
+                        $("#mobile-error").show();
+                    } else {
+                        $("#mobile-error").hide();
+                        event.preventDefault();
+                    }
+                });
+
+                var phone_number = $('#form_mobile').val();
+                if (!phone_validate(phone_number) || phone_number.length < 8) {
+                    $("#mobile-error").html("A mobil csak számokat tartalmazhat");
+                    $("#mobile-error").show();
+                } else {
+                    $("#mobile-error").hide();
+                    event.preventDefault();
+                }
+
+                function checkSuplierName() {
+                    var suplierNamelength = $('#form_suplier').val().length;
+
+                    if (suplierNamelength < 5 || suplierNamelength > 20) {
+                        $("#error_form").html("A név mező minimum 5 és maximum 20 karakter között kell, hogy legyen");
+                        $("#error_form").show();
+                        // error_suplier_name = true;
+                    } else {
+                        $("#error_form").hide();
+                    }
+                }
+
+                function phone_validate(phno) {
+                    var regexPattern = new RegExp(/^[0-9-+]+$/);
+                    return regexPattern.test(phno);
+                }
+                $(".modal").modal('hide');
             });
         });
 
@@ -151,6 +226,7 @@
     };
 
     ko.applyBindings(new SuppliersModel(initialData));
+
     </script>
 </body>
 </html>
